@@ -69,7 +69,7 @@ class propertiesController extends Controller
         {
             $propertie = properties::find($id);
             $équipements  = equipments::all();
-        
+            
             return view('form',compact('propertie','équipements'));
         }
 
@@ -102,14 +102,15 @@ class propertiesController extends Controller
                 'image' => 'required|image|max:2000', 
             ]);
 
-            $propertie = properties::find($id);
+            $reservation = Reservation::where($id)->get();
+            if ($reservation->dateDépart < $request->disponibilite) {
+                $propertie = properties::find($id);
             if (!$propertie) {
                 session()->flash('errur', 'User not found');
                 return back();
             }
 
             if ($request->has('image')) {
-                // unlink(storage_path("app/" . $propertie->image));
                 $imagePath = $request->file('image')->store('public/properties'); 
              }
             $propertie->titre = $request->titre;
@@ -126,7 +127,10 @@ class propertiesController extends Controller
             if ($request->has('equipments')) {
                 $propertie->equipments()->sync($request->equipments);
             }
-            
+            }else
+            {
+                session()->flash('error','date unvalide');
+            }
             $propertie->save();
             
             session()->flash('success', 'properties updated successfully');

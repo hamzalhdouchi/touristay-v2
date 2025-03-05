@@ -90,4 +90,11 @@ class paypalController extends Controller
         session()->flash('error','user dicline the payment');
         return to_route('readAll.properties');
     }
+
+    public function readAllpayment()
+    {
+        $payments = payment::all();
+
+        return view('payment',compact('payments'));
+    }
 }

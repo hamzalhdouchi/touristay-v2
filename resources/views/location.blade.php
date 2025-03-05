@@ -340,6 +340,11 @@
         function openModal() {
             document.getElementById("propertyModal").classList.remove("hidden");
         }
+
+    document.getElementById('notificationButton').addEventListener('click', function() {
+    const dropdown = document.querySelector('.notification-dropdown');
+    dropdown.classList.toggle('hidden');
+        });
     
         function closeModal() {
             document.getElementById("propertyModal").classList.add("hidden");

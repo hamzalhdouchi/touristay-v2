@@ -42,9 +42,10 @@ class ReservationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ReservationRequeste $request)
+    public function getAllReservation()
     {
-        //
+        $reservations =  Reservation::with( 'properties')->with('user')->get();
+        return view('reservationAdmin',compact('reservations'));
     }
 
     /**

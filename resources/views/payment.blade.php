@@ -175,45 +175,33 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ID</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Propriété</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Adresse</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Prix/Nuit</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">payment_id</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">payer_id</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">payer_email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Prix</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                            @foreach ($properties as $propertie)
+                            @foreach ($payments as $payment)
                             <tr>
-                                <td class="px-6 py-4">#{{$propertie->id}}</td>
+                                <td class="px-6 py-4">#{{$payment->id}}</td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center">
-                                        <img src="{{ asset('storage/' . $propertie->image) }}" alt="Property" class="w-10 h-10 rounded-lg mr-3">
-
                                         <div>
-                                            <div class="font-medium">{{$propertie->titre}}</div>
-                                            <div class="text-sm text-gray-500">{{$propertie->chambres}} chambres • {{$propertie->salles_de_bain}} SDB</div>
+                                            <div class="font-medium">{{$payment->payment_id}}</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4">{{$propertie->adresse}}</td>
-                                <td class="px-6 py-4">{{$propertie->ville}}</td>
-                                <td class="px-6 py-4">{{$propertie->prix_par_nuit}} €</td>
+                                <td class="px-6 py-4">{{$payment->payer_id}}</td>
+                                <td class="px-6 py-4">{{$payment->payer_email}}</td>
+                                <td class="px-6 py-4">{{$payment->amount}} €</td>
                                 <td class="px-6 py-4">
                                     <span class="px-2 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">
-                                        Actif
-                                    </span>
+                                        {{$payment->status}}
                                 </td>
-                                <td class="px-6 py-4">
-                                    <div class="flex space-x-2">
-                                        <form action="{{route('propertie.destroyProperties' , $propertie->id)}}" method="post">
-                                            @csrf
-                                            @method('DELETE');
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Supprimer</button>
-                                        </form>
-                                    </div>
-                                </td>
+                                
                             </tr>
                             @endforeach
                             <!-- Add more property rows here -->
