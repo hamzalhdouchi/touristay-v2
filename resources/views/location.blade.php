@@ -58,8 +58,7 @@
             
                             <!-- Notification Icon -->
                             <div class="relative">
-                                <!-- Notification Bell Icon -->
-                                <button class="text-gray-600 hover:text-gray-900" id="notificationButton">
+                                <button class="text-gray-600 hover:text-gray-900" id="notificationButton" onclick="markNotificationsAsRead()">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8a6 6 0 10-12 0 6 6 0 0012 0zM12 14l3-3m0 0l-3-3m3 3H6"></path>
                                     </svg>

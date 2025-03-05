@@ -54,6 +54,10 @@ Route::get('/success',  [paypalController::class, 'success'])->name('success');
 Route::get('/error',  [paypalController::class, 'error'])->name('error');
 
 
+Route::get('/notifications/mark', [NotificationController::class, 'markNotificationsAsRead'])->name('notifications.read');
+
+
+
 Route::get('/dashboard', [AdminController::class, 'read'])->name('user.read')->middleware(['auth', 'role:admin']);
 Route::post('/logout', [UserController::class, 'logout'])->name('user.logout')->middleware(['auth', 'role:admin']);
 Route::post('/properties', [propertiesController::class, 'create'])->name('properties.create')->middleware(['auth', 'role:proprietaire']);
