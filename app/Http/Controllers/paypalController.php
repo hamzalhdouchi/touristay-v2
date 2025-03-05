@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\PaymentFacture;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\payment;
@@ -68,6 +69,9 @@ class paypalController extends Controller
                 $payment->amount = $arr['transactions'][0]['amount']['total']; 
                 $payment->save(); 
                 
+                $user = auth()->user();
+                $user->notify(new PaymentFacture($payment));
+
                 session()->flash('success','Payment successful');
                 
                 return to_route('readAll.properties');

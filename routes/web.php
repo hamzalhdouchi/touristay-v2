@@ -47,6 +47,7 @@ Route::POST('/Reservation/{id}',  [propertiesController::class, 'readPropretisDi
 
 Route::POST('/Reservation/store/{id}',  [ReservationController::class, 'create'])->name('reservation');
 Route::get('/meReservation',  [ReservationController::class, 'index'])->name('meReservation');
+Route::get('/Reservation/propretair',  [ReservationController::class, 'show'])->name('reservationAdmin');
 Route::DELETE('/reservation/cancel/{id}',  [ReservationController::class, 'destroy'])->name('reservation.cancel');
 Route::POST('/Payment',  [paypalController::class, 'pay'])->name('Pay');
 Route::get('/success',  [paypalController::class, 'success'])->name('success');

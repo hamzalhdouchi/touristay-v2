@@ -50,9 +50,11 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
+    public function show()
     {
-        //
+        $reservations =  Reservation::with('properties')->with('user')->get();
+        
+        return view('reservationProperties',compact('reservations'));
     }
 
     /**

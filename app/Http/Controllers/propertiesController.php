@@ -109,7 +109,7 @@ class propertiesController extends Controller
             }
 
             if ($request->has('image')) {
-                unlink(storage_path("app/" . $propertie->image));
+                // unlink(storage_path("app/" . $propertie->image));
                 $imagePath = $request->file('image')->store('public/properties'); 
              }
             $propertie->titre = $request->titre;

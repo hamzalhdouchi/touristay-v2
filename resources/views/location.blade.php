@@ -23,13 +23,13 @@
                     </svg>
                     Tableau de bord
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 bg-red-700">
+                <a href="{{route('properties.read')}}" class="flex items-center px-4 py-3 bg-red-700">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                     </svg>
                     Propriétés
                 </a>
-                <a href="#" class="flex items-center px-4 py-3 hover:bg-red-700">
+                <a href="{{route('reservationAdmin')}}" class="flex items-center px-4 py-3 hover:bg-red-700">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
@@ -41,31 +41,49 @@
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto">
             <!-- Header -->
-            <div class="bg-white shadow">
-                <div class="px-6 py-4 flex justify-between items-center">
-                    <h1 class="text-2xl font-bold text-gray-800">Gestion des Propriétés</h1>
-                    <div class="flex gap-4">
-                        <!-- Bouton Ajouter une Propriété -->
-                        <button onclick="openModal()" 
-                                class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                            </svg>
-                            Ajouter une Propriété
-                        </button>
+            <main class="flex-1 overflow-y-auto">
+                <!-- Header -->
+                <div class="bg-white shadow">
+                    <div class="px-6 py-4 flex justify-between items-center">
+                        <h1 class="text-2xl font-bold text-gray-800">Gestion des Propriétés</h1>
+                        <div class="flex gap-4">
+                            <!-- Bouton Ajouter une Propriété -->
+                            <button onclick="openModal()" 
+                                    class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                Ajouter une Propriété
+                            </button>
             
-                        <!-- Bouton Gérer le Profil -->
-                        <a href="{{ route('user.Profile') }}" 
-                           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                      d="M5.121 17.804A9.004 9.004 0 0112 3a9.004 9.004 0 016.879 14.804M15 21H9m6 0a3 3 0 00-6 0"/>
-                            </svg>
-                            Gérer le Profil
-                        </a>
+                            <!-- Notification Icon -->
+                            <div class="relative">
+                                <!-- Notification Bell Icon -->
+                                <button class="text-gray-600 hover:text-gray-900" id="notificationButton">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8a6 6 0 10-12 0 6 6 0 0012 0zM12 14l3-3m0 0l-3-3m3 3H6"></path>
+                                    </svg>
+                                </button>
+                                <!-- Notification Badge -->
+                                @if(auth()->user()->unreadNotifications->count() > 0)
+                                <span class="absolute top-0 right-0 inline-block w-4 h-4 bg-red-600 text-white text-xs rounded-full">
+                                    {{ auth()->user()->unreadNotifications->count() }}
+                                </span>
+                                @endif
+                            </div>
+            
+                            <!-- Bouton Gérer le Profil -->
+                            <a href="{{ route('user.Profile') }}" 
+                               class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M5.121 17.804A9.004 9.004 0 0112 3a9.004 9.004 0 016.879 14.804M15 21H9m6 0a3 3 0 00-6 0"/>
+                                </svg>
+                                Gérer le Profil
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
             
 
             <!-- Stats Cards -->
