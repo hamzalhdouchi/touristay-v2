@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use App\Http\Requests\ReservationRequeste;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ReservationController extends Controller
@@ -24,8 +25,8 @@ class ReservationController extends Controller
     public function create(ReservationRequeste $request,$id)
     {
         $reservatioDate = explode("-",$request->daterange);
-        $dataArrivée = $reservatioDate[0];
-        $dateDépart = $reservatioDate[1];
+        $dataArrivée = Carbon::parse($reservatioDate[0]);
+        $dateDépart = Carbon::parse($reservatioDate[1]);
         Reservation::create([
             'user_id'=> $request->user_id,
             'properties_id' => $id,

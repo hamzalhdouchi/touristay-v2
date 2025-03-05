@@ -49,7 +49,8 @@ Route::POST('/Reservation/store/{id}',  [ReservationController::class, 'create']
 Route::get('/meReservation',  [ReservationController::class, 'index'])->name('meReservation');
 Route::DELETE('/reservation/cancel/{id}',  [ReservationController::class, 'destroy'])->name('reservation.cancel');
 Route::POST('/Payment',  [paypalController::class, 'pay'])->name('Pay');
-// Route::get('/Reserv',  [ReservationController::class, 'index'])->name('reservation');
+Route::get('/success',  [paypalController::class, 'success'])->name('success');
+Route::get('/error',  [paypalController::class, 'error'])->name('error');
 
 
 Route::get('/dashboard', [AdminController::class, 'read'])->name('user.read')->middleware(['auth', 'role:admin']);

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use App\Models\payment;
+
 use Omnipay\Omnipay;
+
 use PharIo\Manifest\Url;
 
 class paypalController extends Controller
@@ -27,8 +31,9 @@ class paypalController extends Controller
 
             $response = $this->geteway->purchase(array(
                 'amount' => $request->amount,
-                'returnUrl' => Url('success'),
-                'cancelUrl' => Url('error'),
+                'currency' => 'USD',
+            'returnUrl' => Url('success'),
+            'cancelUrl' => Url('error'),
             ))->send();
 
             if (true) {
@@ -38,5 +43,47 @@ class paypalController extends Controller
         } catch (\Throwable $th) {
             dd($th->getMessage());
         }
+    }
+
+
+
+    public function success(Request $request)
+    {
+        if ($request->input('paymentId') && $request->input('PayerID')) {
+            $transaction = $this->geteway->completePurchase([
+                'payer_id' => $request->input('PayerID'),
+                'transactionReference' => $request->input('paymentId'),
+            ])->send();
+    
+            $response = $transaction->getData();
+    
+            if ($transaction->isSuccessful()) {
+                $arr = $response;
+    
+                $payment = new payment();
+                $payment->payment_id = $arr['id'];
+                $payment->payer_id = $arr['payer']['payer_info']['payer_id'];
+                $payment->payer_email = $arr['payer']['payer_info']['email'];
+                $payment->status = $arr['state'];
+                $payment->amount = $arr['transactions'][0]['amount']['total']; 
+                $payment->save(); 
+                
+                session()->flash('success','Payment successful');
+                
+                return to_route('readAll.properties');
+            } else {
+                session()->flash('error',$transaction->getMessage());
+                return to_route('readAll.properties');
+            }
+        } else {
+            session()->flash('error', 'Payment declined');
+            return to_route('readAll.properties');
+        }
+    }
+    
+    public function error()  {
+
+        session()->flash('error','user dicline the payment');
+        return to_route('readAll.properties');
     }
 }

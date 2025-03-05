@@ -138,6 +138,7 @@
         }
         $('input[name="daterange"]').daterangepicker({
             opens: 'left',
+            
             minDate: "{{Carbon\Carbon::now()->format("d/m/Y")}}",
             maxDate: "{{Carbon\Carbon::parse($propertie->disponibilite)->format("d/m/Y")}}",
         });

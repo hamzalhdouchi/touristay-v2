@@ -239,9 +239,6 @@
         </div>
     </main>
     @include('auth.alert');
-
-
-  
 </body>
 
 </html>
