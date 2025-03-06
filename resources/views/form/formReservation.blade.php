@@ -29,13 +29,13 @@
                     <div class="mb-4">
                         <label for="daterange" class="block text-gray-700 text-sm font-bold mb-2">Date de réservation</label>
                         <input 
-                            onchange="calculatePrice()" 
-                            type="text" 
-                            id="daterange" 
-                            class="block text-gray-700 text-sm font-bold mb-2 @error('daterange') border-red-500 @enderror" 
-                            name="daterange" 
-                            value="{{ \Carbon\Carbon::now()->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($propertie->disponibilite)->format('d/m/Y') }}" 
-                        />
+                        onchange="calculatePrice()" 
+                        type="text" 
+                        id="daterange" 
+                        class="block text-gray-700 text-sm font-bold mb-2 @error('daterange') border-red-500 @enderror" 
+                        name="daterange" 
+                        value="{{ \Carbon\Carbon::now()->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($propertie->disponibilite)->format('d/m/Y') }}" 
+                    />
                         @error('daterange')
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror
@@ -65,36 +65,6 @@
         </div>
     </div>
     <script>
-        // function openLightbox() {
-        //     ('[data-fancybox="gallery"]').fancybox({
-        //         loop: true, 
-        //         buttons: [
-        //             "zoom",
-        //             "share",
-        //             "slideShow",
-        //             "fullScreen",
-        //             "download",
-        //             "thumbs",
-        //             "close"
-        //         ],
-        //         animationEffect: "fade", 
-        //         transitionEffect: "fade", 
-        //         transitionDuration: 300, 
-        //         slideShow: {
-        //             autoStart: false,
-        //             speed: 2000
-        //         },
-        //         thumbs: {
-        //             autoStart: true 
-        //         }
-        //     });
-        // }
-    
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     openLightbox();
-            
-        // });minDate
-    
         function confirmDelete(id) {
             const modal = document.getElementById('deleteModal');
             const deleteForm = document.getElementById('deleteForm');
@@ -137,41 +107,28 @@
             document.getElementById('bookingModal').classList.add('hidden');
         }
 
-    //     reservationDates = [
-    //         @if($reservation)
-    // "{{ Carbon\Carbon::parse($reservation->dataArrivée)->format("m/d/Y") . " - " .  Carbon\Carbon::parse($reservation->dateDépart)->format("m/d/Y")}}"
-    //     @endif
+        let reservationDates = [
+        @foreach($reservations as $reservation)
+            ["{{ Carbon\Carbon::parse($reservation->dataArrivée)->format('m/d/Y') }}", "{{ Carbon\Carbon::parse($reservation->dateDépart)->format('m/d/Y') }}"],
+        @endforeach
+    ];
 
-    //     ];
-    //     resDates = [];
-    //     $.map(reservationDates, function (element) {
-    //         element = element.split(" - ")
-    //         element = $.map(element, function(el){
-    //             return Date.parse(el);
-    //         });
-    //         resDates.push(element);
-    //     });
-    //     $('input[name="datefilter"]').daterangepicker({
-    //         autoUpdateInput: false,
-    //         opens: 'left',
-    //         minDate: "{{Carbon\Carbon::now()->format("m/d/Y")}}",
-    //         maxDate: "{{Carbon\Carbon::parse($propertie->disponibilite)->format("m/d/Y")}}",
-    //         isInvalidDate: function(date) {
-    //             for(resDate of resDates){
-    //                 if(date <= resDate[1] && date >=resDate[0]){
-    //                     return true;
-    //                 }
-    //             }
-    //         }
-    //     });
-        $('input[name="daterange"]').daterangepicker({
-            opens: 'left',
-            isInvalidDate : function(date){
-                
-            },
-            minDate: "{{Carbon\Carbon::now()->format("d/m/Y")}}",
-            maxDate: "{{Carbon\Carbon::parse($propertie->disponibilite)->format("d/m/Y")}}",
-        });
+    let resDates = [];
+    reservationDates.forEach(element => {
+        let start = Date.parse(element[0]);
+        let end = Date.parse(element[1]);
+        resDates.push([start, end]);
+    });
+
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left',
+        minDate: "{{ \Carbon\Carbon::now()->format('d/m/Y') }}",
+        maxDate: "{{ \Carbon\Carbon::parse($propertie->disponibilite)->format('d/m/Y') }}",
+        isInvalidDate: function(date) {
+            let timestamp = date.valueOf();
+            return resDates.some(range => timestamp >= range[0] && timestamp <= range[1]);
+        }
+    });
     </script>
 </body>
 </html>

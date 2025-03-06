@@ -31,7 +31,7 @@ class propertiesController extends Controller
             ]);
         
         if ($request->has('image')) {
-            $imagePath = $request->file('image')->store('public/properties'); 
+            $imagePath = $request->file('image')->store('properties', 'public'); 
         }else {
                 session()->flash('error', 'L image est requise!');
             };
@@ -102,34 +102,37 @@ class propertiesController extends Controller
                 'image' => 'required|image|max:2000', 
             ]);
 
-            $reservation = Reservation::where($id)->get();
-            if ($reservation->dateDépart < $request->disponibilite) {
-                $propertie = properties::find($id);
-            if (!$propertie) {
-                session()->flash('errur', 'User not found');
-                return back();
-            }
+            $reservations = Reservation::where($id)->get();
+            foreach ($reservations as $reservation) {
 
-            if ($request->has('image')) {
-                $imagePath = $request->file('image')->store('public/properties'); 
-             }
-            $propertie->titre = $request->titre;
-            $propertie->description = $request->description;
-            $propertie->caution = $request->caution;
-            $propertie->chambres = $request->chambres;
-            $propertie->salles_de_bain = $request->salles_de_bain;
-            $propertie->adresse = $request->adresse;
-            $propertie->ville = $request->ville;
-            $propertie->code_postal = $request->code_postal;
-            $propertie->disponibilite =$request->disponibilite;
-            $propertie->image = $imagePath;
-           
-            if ($request->has('equipments')) {
-                $propertie->equipments()->sync($request->equipments);
-            }
-            }else
-            {
-                session()->flash('error','date unvalide');
+                if ($reservation->dateDépart < $request->disponibilite) {
+                    $propertie = properties::find($id);
+                if (!$propertie) {
+                    session()->flash('errur', 'User not found');
+                    return back();
+                }
+    
+                if ($request->has('image')) {
+                    $imagePath = $request->file('image')->store('public/properties'); 
+                 }
+                $propertie->titre = $request->titre;
+                $propertie->description = $request->description;
+                $propertie->caution = $request->caution;
+                $propertie->chambres = $request->chambres;
+                $propertie->salles_de_bain = $request->salles_de_bain;
+                $propertie->adresse = $request->adresse;
+                $propertie->ville = $request->ville;
+                $propertie->code_postal = $request->code_postal;
+                $propertie->disponibilite =$request->disponibilite;
+                $propertie->image = $imagePath;
+               
+                if ($request->has('equipments')) {
+                    $propertie->equipments()->sync($request->equipments);
+                }
+                }else
+                {
+                    session()->flash('error','date unvalide');
+                }
             }
             $propertie->save();
             
@@ -140,8 +143,9 @@ class propertiesController extends Controller
         public function readPropretisDit($id)
         {
             $propertie = properties::with('equipments','user')->find($id);
-            $reservation = Reservation::find($id);
-            return view('form.formReservation',compact('propertie','reservation'));
+            $reservations = $propertie->Reservations;
+            
+            return view('form.formReservation',compact('propertie','reservations'));
         }
 
         public function readAllProperties(Request $request)

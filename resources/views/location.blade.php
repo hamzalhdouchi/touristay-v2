@@ -183,6 +183,7 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($properties as $propertie)
+                            @if ($propertie->user_id == Auth::user()->id);
                             <tr>
                                 <td class="px-6 py-4">#{{$propertie->id}}</td>
                                 <td class="px-6 py-4">
@@ -217,15 +218,12 @@
                                     </div>
                                 </td>
                             </tr>
+                            @endif
                             @endforeach
-                            <!-- Add more property rows here -->
+                        
                         </tbody>
                     </table>
 
-                    <!-- Pagination -->
-                    <div class="px-6 py-4 flex items-center justify-between border-t">
-                        {{-- {{ $propertie->links() }} --}}
-                    </div>
                 </div>
             </div>
         </main>

@@ -20,7 +20,7 @@ class PropertySeeder extends Seeder
         $faker = Faker::create();
 
         // Créez 10 propriétés en utilisant le modèle Eloquent
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             properties::create([
                 'titre' => $faker->sentence,
                 'description' => $faker->paragraph,
@@ -32,7 +32,7 @@ class PropertySeeder extends Seeder
                 'ville' => $faker->city,
                 'code_postal' => $faker->postcode,
                 'disponibilite' => $faker->date(),
-                'image' => 'example.jpg', // Vous pouvez remplacer ceci par un vrai chemin d'image
+                'image' => 'example.jpg', 
                 'user_id' => 1,
             ]);
         }

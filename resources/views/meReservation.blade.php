@@ -1,50 +1,27 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Réservations - Airbnb</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'airbnb': '#FF385C',
-                        'airbnb-dark': '#E00B41',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-50 text-gray-900 font-sans">
-    <!-- Header (Similar to Previous Page) -->
-    <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
-        <div class="container mx-auto px-4 max-w-7xl">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <svg class="h-8 w-8 text-airbnb" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C14.5 2 16.5 4 16.5 6.5C16.5 9 15 11 13 13C12.5 13.5 12 13.5 11.5 13C9.5 11 8 9 8 6.5C8 4 10 2 12 2M12 0C9 0 6 2.5 6 6.5C6 10 8 12.5 10.5 15C11 15.5 12 16 12.5 15.5C15 13 17 10.5 17 6.5C17 2.5 15 0 12 0Z" />
-                    </svg>
-                    <span class="ml-2 text-airbnb font-bold text-xl">airbnb</span>
-                </div>
-            </div>
-        </div>
-    </header>
+@extends('layouts.headersFooter')
+
+@section('content')
 
     <!-- Hero Section -->
-    <div class="relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden mb-8">
-        <div class="relative max-w-7xl mx-auto px-4 py-16 sm:py-24 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl mb-4">
+    <div class="relative bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 overflow-hidden mb-8 rounded-xl h-[50vh]">
+        <!-- Hero Background with Image -->
+        <div class="absolute inset-0">
+            <img src="https://www.marrakech-private-resort.com/wp-content/uploads/2018/03/MPR-VillaDar78surGolf-01.jpg"
+                alt="Beautiful vacation destinations" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-black opacity-40"></div> <!-- Overlay -->
+        </div>
+    
+        <!-- Hero Content -->
+        <div class="relative max-w-7xl mx-auto px-4 py-16 sm:py-24 sm:px-6 lg:px-8 text-center text-white">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl mb-4">
                 Mes Réservations
             </h1>
-            <p class="mt-4 text-xl text-white max-w-3xl mx-auto">
+            <p class="mt-4 text-xl max-w-3xl mx-auto">
                 Retrouvez tous vos séjours à venir et gérez vos réservations
             </p>
         </div>
     </div>
+    
 
     <!-- Reservations Container -->
     <main class="container mx-auto px-4 max-w-4xl py-8">
@@ -106,5 +83,4 @@
 
         @include('auth.alert');
     </main>
-</body>
-</html>
+    @endsection

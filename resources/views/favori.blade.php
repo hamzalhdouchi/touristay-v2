@@ -1,44 +1,12 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Favoris</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="bg-gray-50 text-gray-900 font-sans">
-    <!-- Header -->
-    <header class="sticky top-0 bg-white border-b border-gray-300 z-50">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <!-- Logo -->
-            <div class="text-2xl font-bold text-rose-500">
-                FavoriBook
-            </div>
-            
-            <!-- Navigation -->
-            <nav class="hidden md:flex space-x-6">
-                <a href="{{route('readAll.properties')}}" class="font-medium">Accueil</a>
-                <a href="#" class="font-medium">Explorer</a>
-                <a href="{{route('favoris.index')}}" class="font-medium  text-rose-500">Favoris</a>
-                <a href="#" class="font-medium">Catégories</a>
-            </nav>
-            
-            <!-- User Menu -->
-            <div class="flex items-center gap-2 border border-gray-300 rounded-full p-2 cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                <div class="w-8 h-8 bg-gray-500 rounded-full"></div>
-            </div>
-        </div>
-    </header>
+@extends('layouts.headersFooter')
+
+@section('content')
     
     <!-- Hero Section -->
     <section class="relative">
         <!-- Background Image -->
         <div class="absolute inset-0 w-full h-full">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD50ig-1yJkfMC66gTEkQC3WUbtnjK5CYqDQ&s" class="w-full h-full object-cover" />
+            <img src="https://www.villasmarrakech.com/photos/5108/marrakech-villa-rl-20078892425d88a17faf3748.77350493.1920.jpg" class="w-full h-full object-cover" />
             <div class="absolute inset-0 bg-black bg-opacity-40"></div>
         </div>
         
@@ -139,14 +107,16 @@
                     </div>
             
                     <div class="mt-4 flex justify-end">
-                        <button class="px-4 py-2 bg-rose-600 text-white text-sm rounded-md hover:bg-rose-700 transition">
-                            Voir les détails
-                        </button>
+                        <form action="{{ route('reservation_show', ['id' => $propertie->id]) }}" method="POST">
+                            @csrf
+                            <button class="px-4 py-2  bg-rose-600 text-white rounded-md hover:bg-rose-700">
+                                Réserver
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
     </section>
-</body>
-</html>
+    @endsection

@@ -86,7 +86,7 @@ class ReservationController extends Controller
         $reservation = Reservation::destroy($id);
     
         if ($reservation) {
-            session()->flash('success', 'La suppression a réussi');
+            session()->flash('success', 'La Annulation a réussi');
         } else {
             session()->flash('error', 'Une erreur est survenue lors de la suppression');
         }

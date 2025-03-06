@@ -122,47 +122,7 @@
         </div>
     </main>
 
-    <footer class="bg-gray-100 mt-12">
-        <div class="container mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="font-semibold text-gray-800 mb-4">À propos</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Fonctionnement de Luxe Location</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Newsroom</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Investisseurs</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-800 mb-4">Communauté</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Diversité et intégration</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Accessibilité</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Partenaires</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-800 mb-4">Hôte</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Devenir hôte</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Ressources pour les hôtes</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Forum de la communauté</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-gray-800 mb-4">Assistance</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Centre d'aide</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Service de sécurité</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-airbnb">Options d'annulation</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-500">
-                <p>&copy; 2023 Luxe Location. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+ 
     @include('auth.alert');
 </body>
 </html>
