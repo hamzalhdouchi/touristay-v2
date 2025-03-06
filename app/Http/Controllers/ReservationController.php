@@ -7,6 +7,7 @@ use App\Http\Requests\ReservationRequeste;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ResevationNotification;
 class ReservationController extends Controller
 {
     /**
@@ -27,15 +28,18 @@ class ReservationController extends Controller
         $reservatioDate = explode("-",$request->daterange);
         $dataArrivée = Carbon::parse($reservatioDate[0]);
         $dateDépart = Carbon::parse($reservatioDate[1]);
-        Reservation::create([
+        $Reservation = Reservation::create([
             'user_id'=> $request->user_id,
             'properties_id' => $id,
             'dataArrivée' => $dataArrivée,
             'dateDépart' => $dateDépart,
             'prix_Total' => $request->prix_Total,
         ]);
-        
-        session()->flash('s');
+
+        $user = $Reservation->properties->user;
+        $user->notify(new ResevationNotification($Reservation));
+
+        session()->flash('success','Reservation Successfluy');
         return to_route('readAll.properties');
     }
 

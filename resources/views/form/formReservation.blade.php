@@ -136,9 +136,39 @@
         function closeBookingModal() {
             document.getElementById('bookingModal').classList.add('hidden');
         }
+
+    //     reservationDates = [
+    //         @if($reservation)
+    // "{{ Carbon\Carbon::parse($reservation->dataArrivée)->format("m/d/Y") . " - " .  Carbon\Carbon::parse($reservation->dateDépart)->format("m/d/Y")}}"
+    //     @endif
+
+    //     ];
+    //     resDates = [];
+    //     $.map(reservationDates, function (element) {
+    //         element = element.split(" - ")
+    //         element = $.map(element, function(el){
+    //             return Date.parse(el);
+    //         });
+    //         resDates.push(element);
+    //     });
+    //     $('input[name="datefilter"]').daterangepicker({
+    //         autoUpdateInput: false,
+    //         opens: 'left',
+    //         minDate: "{{Carbon\Carbon::now()->format("m/d/Y")}}",
+    //         maxDate: "{{Carbon\Carbon::parse($propertie->disponibilite)->format("m/d/Y")}}",
+    //         isInvalidDate: function(date) {
+    //             for(resDate of resDates){
+    //                 if(date <= resDate[1] && date >=resDate[0]){
+    //                     return true;
+    //                 }
+    //             }
+    //         }
+    //     });
         $('input[name="daterange"]').daterangepicker({
             opens: 'left',
-            
+            isInvalidDate : function(date){
+                
+            },
             minDate: "{{Carbon\Carbon::now()->format("d/m/Y")}}",
             maxDate: "{{Carbon\Carbon::parse($propertie->disponibilite)->format("d/m/Y")}}",
         });

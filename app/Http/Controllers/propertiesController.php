@@ -140,7 +140,8 @@ class propertiesController extends Controller
         public function readPropretisDit($id)
         {
             $propertie = properties::with('equipments','user')->find($id);
-            return view('form.formReservation',compact('propertie'));
+            $reservation = Reservation::find($id);
+            return view('form.formReservation',compact('propertie','reservation'));
         }
 
         public function readAllProperties(Request $request)
